@@ -1,0 +1,45 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        tab8keys
+    }
+
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.micronet.mocklocation"
+        minSdkVersion 28
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.tab8keys
+        }
+        debug {
+            signingConfig signingConfigs.tab8keys
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'com.google.android.material:material:1.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
+
+def tab8_props = new Properties()
+tab8_props.load(new FileInputStream(rootProject.file("tab8keys.properties")))
+android.signingConfigs.tab8keys.storeFile rootProject.file(tab8_props.keyStore)
+android.signingConfigs.tab8keys.storePassword tab8_props.keyStorePassword
+android.signingConfigs.tab8keys.keyAlias tab8_props.keyAlias
+android.signingConfigs.tab8keys.keyPassword tab8_props.keyAliasPassword
