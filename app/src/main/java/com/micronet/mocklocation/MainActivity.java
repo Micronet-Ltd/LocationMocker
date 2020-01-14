@@ -74,6 +74,10 @@ public class MainActivity extends AppCompatActivity {
         seekBarBearing = findViewById(R.id.seekBarBearing);
         spinner = findViewById(R.id.spinner);
 
+        // TODO Implement seek bars
+        seekBarSpeed.setEnabled(false);
+        seekBarBearing.setEnabled(false);
+
         // Prepare spinner
         populateSpinner();
 
